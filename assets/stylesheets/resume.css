@@ -4,6 +4,14 @@ h2 {
   text-decoration: underline;
 }
 
+h2:first-child {
+  margin-top: 0;
+}
+
+h1 a, h2 a, h3 a {
+  color: black;
+}
+
 .dates {
   color: #555;
 }
