@@ -3,6 +3,10 @@ body {
   margin-bottom: 100px
 }
 
+.hide {
+  display: none;
+}
+
 h2 {
   border-bottom: 1px solid #eee;
   padding-bottom: 3px;
@@ -47,7 +51,7 @@ h1 {
 }
 
 #resume {
-  margin: 75px 0 0;
+  margin: 55px 0 0;
 }
 
 .citystate {
@@ -56,15 +60,16 @@ h1 {
   color: #555;
 }
 
+.portrait {
+  max-width: 330px;
+}
 
 .dates {
   font-weight: lighter;
 }
 
 h1 {
-  color:#1433b6;
-  text-shadow: #3f79dd 1px 0 0;
-  font-family: 'Rock Salt', cursive;
+  margin-top: 0;
 }
 
 .position strong {
@@ -90,10 +95,6 @@ strong {
   margin-left: 0;
 }
 
-#logo {
-  margin-bottom: 50px;
-}
-
 .dates {
   color: #555;
 }
@@ -112,5 +113,15 @@ strong {
 @media (min-width: 768px) {
   .container {
     max-width: 960px;
+  }
+}
+
+@media print {
+  .hide-print {
+    visibility: hidden;
+  }
+
+  a[href]:after {
+    content: none !important;
   }
 }
