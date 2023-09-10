@@ -38,10 +38,11 @@ workflows:
 jobs:
   build:
     docker:
-      - image: cimg/base:2020.01
+      - image: cimg/base
     steps:
       - checkout
       - run:
           name: "echo environment variables from org-global context"
-          command: echo $DOCKER_USER
-
+          command: |
+            echo $DOCKER_USER
+            echo $DOCKER_ACCESS_TOKEN | docker login --username $DOCKER_USER --password-stdin
