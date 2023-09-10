@@ -13,6 +13,7 @@ jobs:
       - image: cimg/base:2023.09
     steps:
       - checkout
+      - setup_remote_docker
       - run:
           name: "echo environment variables from org-global context"
           command: |
