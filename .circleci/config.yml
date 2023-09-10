@@ -1,28 +1,47 @@
+#version: 2.1
+#
+#workflows:
+#  build:
+#    jobs:
+#      - build:
+#        context:
+#          - dockerhub
+#jobs:
+#  build:
+#    docker:
+#      - image: cimg/base
+#
+#    working_directory: ~/repo
+#
+#    steps:
+#      - checkout
+#      - setup_remote_docker
+#      - deploy:
+#          name: Build and deploy docker image
+#          command: |
+#            echo $DOCKER_ACCESS_TOKEN | docker login --username $DOCKER_USER --password-stdin
+#
+#            # build docker image
+#            docker build -t zackmattor/zack-mattor:latest .
+#            docker tag zackmattor/zack-mattor:latest zackmattor/zack-mattor:$CIRCLE_SHA1
+#            docker push zackmattor/zack-mattor:$CIRCLE_SHA1
+#            docker push zackmattor/zack-mattor:latest
 version: 2.1
 
 workflows:
-  build:
+  build-and-push:
     jobs:
       - build:
-        context:
-          - dockerhub
+          context:
+            - dockerhub
+
 jobs:
   build:
     docker:
-      - image: cimg/base
-
-    working_directory: ~/repo
-
+      - image: cimg/base:2020.01
     steps:
       - checkout
-      - setup_remote_docker
-      - deploy:
-          name: Build and deploy docker image
-          command: |
-            echo $DOCKER_ACCESS_TOKEN | docker login --username $DOCKER_USER --password-stdin
+      - run:
+          name: "echo environment variables from org-global context"
+          command: echo $DOCKER_USER
 
-            # build docker image
-            docker build -t zackmattor/zack-mattor:latest .
-            docker tag zackmattor/zack-mattor:latest zackmattor/zack-mattor:$CIRCLE_SHA1
-            docker push zackmattor/zack-mattor:$CIRCLE_SHA1
-            docker push zackmattor/zack-mattor:latest
