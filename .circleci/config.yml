@@ -1,23 +1,23 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
-version: 3
+version: 2.1
+
+workflows:
+  build-and-push:
+    jobs:
+      - build:
+          context:
+            - dockerhub
+
 jobs:
   build:
     docker:
-      - image: circleci/node:9
-
-    working_directory: ~/repo
-
+      - image: cimg/base:2023.09
     steps:
       - checkout
-
       - setup_remote_docker
-      - deploy:
-          name: Build and deploy docker image
+      - run:
+          name: "echo environment variables from org-global context"
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+            echo $DOCKER_ACCESS_TOKEN | docker login --username $DOCKER_USER --password-stdin
 
             # build docker image
             docker build -t zackmattor/zack-mattor:latest .
